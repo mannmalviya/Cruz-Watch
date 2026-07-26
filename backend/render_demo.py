@@ -4,10 +4,12 @@ annotated result as an mp4, for the hosted demo site (which has no GPU backend).
 The output is exactly what the live MJPEG stream shows — same model, same zones,
 same alert logic — just captured to a file and labeled as a recording.
 
-    python3 render_demo.py            # all sites -> ../web/public/demo/
+    python3 render_demo.py                # all sites -> ../web/public/demo/
+    python3 render_demo.py sc-pool-07     # render one site's video; sites.json still covers all
 """
 import json
 import subprocess
+import sys
 import tempfile
 from pathlib import Path
 
@@ -15,6 +17,8 @@ import cv2
 
 from pipeline import annotate, make_model
 from primitives import PrimitiveEngine
+
+ONLY = sys.argv[1] if len(sys.argv) > 1 else None
 
 SITES = Path(__file__).parent / "sites"
 CLIPS = Path(__file__).parent / "clips"
@@ -25,6 +29,13 @@ sites_meta = []
 
 for site_path in sorted(SITES.glob("*.json")):
     site = json.loads(site_path.read_text())
+    if ONLY and site["id"] != ONLY:
+        cap = cv2.VideoCapture(str(CLIPS / site["clip"]))
+        fps = cap.get(cv2.CAP_PROP_FPS) or 30.0
+        cap.release()
+        sites_meta.append({**site, "runtime": {"status": "REPLAY", "fps": round(fps, 1),
+                                               "person_count": 0}})
+        continue
     cfg = site.get("detector", {})
     stride = cfg.get("stride", 2)
     engine = PrimitiveEngine(site)

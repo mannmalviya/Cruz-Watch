@@ -1,0 +1,28 @@
+{
+  "id": "sc-nightlife-09",
+  "name": "Nightlife District — Corner Cam",
+  "type": "URBAN",
+  "location": { "lat": 36.9744, "lng": -122.0290 },
+  "clip": "urban_nola.mp4",
+  "footage_provenance": "SYNTHETIC_FOOTAGE",
+  "footage_note": "EarthCam New Orleans street-view camera — real fixed city camera, recorded 2026-07-26; stand-in for a Santa Cruz nightlife corner, not this location.",
+  "frame_size": [1280, 720],
+  "detector": { "imgsz": 1280, "conf": 0.3, "stride": 2 },
+  "zones": [
+    {
+      "id": "intersection",
+      "kind": "ACTIVE_ROADWAY",
+      "label": "Intersection",
+      "polygon": [[0, 330], [640, 300], [1050, 430], [700, 720], [0, 720]]
+    }
+  ],
+  "armed_primitives": ["zone_dwell", "prone"],
+  "thresholds": {
+    "dwell_seconds": 12.0,
+    "prone_ratio": 1.0,
+    "prone_hold_seconds": 3.0,
+    "cooldown_seconds": 75.0
+  },
+  "responder": "SCPD_FIRE_EMS_SIM",
+  "agent_context": "Bar-district street corner with heavy late-night foot traffic. The two incident patterns here are people lingering in the intersection while impaired, and ground-level medical events — collapse from intoxication or overdose. Both are time-critical at night when bystander attention is unreliable. Police and Fire/EMS co-respond in this district."
+}

@@ -322,6 +322,68 @@
   }
  },
  {
+  "id": "sc-openwater-07",
+  "name": "Cowell Cove \u2014 Distress Watch",
+  "type": "COASTAL",
+  "location": {
+   "lat": 36.9622,
+   "lng": -122.0231
+  },
+  "clip": "openwater_drill.mp4",
+  "banner": "STAGED RESCUE DRILL - DROWNING-DETECTION DEMO, NOT A REAL EMERGENCY",
+  "footage_provenance": "SYNTHETIC_FOOTAGE",
+  "footage_note": "STAGED open-water rescue drill (Surf Life Saving Wales training footage): an instructor simulates swimmer distress and a face-down passive float, then a board rescue. Stand-in for this site; not a real emergency.",
+  "frame_size": [
+   640,
+   360
+  ],
+  "detector": {
+   "imgsz": 960,
+   "conf": 0.3,
+   "stride": 1
+  },
+  "zones": [
+   {
+    "id": "open-water",
+    "kind": "OPEN_WATER",
+    "label": "Open water",
+    "polygon": [
+     [
+      0,
+      0
+     ],
+     [
+      640,
+      0
+     ],
+     [
+      640,
+      360
+     ],
+     [
+      0,
+      360
+     ]
+    ]
+   }
+  ],
+  "armed_primitives": [
+   "prone"
+  ],
+  "thresholds": {
+   "prone_ratio": 1.0,
+   "prone_hold_seconds": 2.5,
+   "cooldown_seconds": 20.0
+  },
+  "responder": "SCFD_MARINE_RESCUE_SIM",
+  "agent_context": "Sheltered cove east of the wharf, popular with swimmers beyond the lifeguard flags. A swimmer who transitions from active movement to a face-down, horizontal, motionless float is presenting as an unconscious drowning victim; survival is measured in minutes. Policy: any prone detection in open water is treated as a suspected drowning and escalated at maximum urgency. Training drills are announced to dispatch separately and must never be assumed from the video feed.",
+  "runtime": {
+   "status": "REPLAY",
+   "fps": 25.0,
+   "person_count": 0
+  }
+ },
+ {
   "id": "sc-seabright-02",
   "name": "Seabright Beach @ Harbor Mouth",
   "type": "COASTAL",
@@ -429,6 +491,135 @@
   "runtime": {
    "status": "REPLAY",
    "fps": 5.0,
+   "person_count": 0
+  }
+ },
+ {
+  "id": "sc-transit-10",
+  "name": "Transit Center \u2014 Collapse Demo",
+  "type": "URBAN",
+  "location": {
+   "lat": 36.9712,
+   "lng": -122.0256
+  },
+  "clip": "urban_collapse.mp4",
+  "banner": "STAGED FALL (RESEARCH DATASET) - COLLAPSE-DETECTION DEMO, NOT A REAL EMERGENCY",
+  "footage_provenance": "SYNTHETIC_FOOTAGE",
+  "footage_note": "Le2i fall-detection research dataset (Univ. of Burgundy) \u2014 a researcher deliberately falls and lies still for a fixed indoor camera. Staged for research; stand-in for a transit-facility interior camera.",
+  "frame_size": [
+   640,
+   480
+  ],
+  "detector": {
+   "imgsz": 960,
+   "conf": 0.3,
+   "stride": 1
+  },
+  "zones": [
+   {
+    "id": "waiting-area",
+    "kind": "INDOOR_WAITING_AREA",
+    "label": "Waiting area",
+    "polygon": [
+     [
+      0,
+      120
+     ],
+     [
+      640,
+      120
+     ],
+     [
+      640,
+      480
+     ],
+     [
+      0,
+      480
+     ]
+    ]
+   }
+  ],
+  "armed_primitives": [
+   "prone"
+  ],
+  "thresholds": {
+   "prone_ratio": 1.0,
+   "prone_hold_seconds": 2.0,
+   "cooldown_seconds": 20.0
+  },
+  "responder": "SCPD_FIRE_EMS_SIM",
+  "agent_context": "Transit-center interior waiting area. A person who falls and remains horizontal on the floor is presenting as a medical collapse \u2014 cardiac events, seizure, overdose, and head injury are the leading causes here; several are fatal within minutes without intervention. Policy: any prone detection indoors is treated as a medical emergency and escalated immediately. Cleaning or maintenance staff working at floor level are announced on a separate channel and must never be assumed from the feed.",
+  "runtime": {
+   "status": "REPLAY",
+   "fps": 25.0,
+   "person_count": 0
+  }
+ },
+ {
+  "id": "sc-nightlife-09",
+  "name": "Nightlife District \u2014 Corner Cam",
+  "type": "URBAN",
+  "location": {
+   "lat": 36.9744,
+   "lng": -122.029
+  },
+  "clip": "urban_nola.mp4",
+  "footage_provenance": "SYNTHETIC_FOOTAGE",
+  "footage_note": "EarthCam New Orleans street-view camera \u2014 real fixed city camera, recorded 2026-07-26; stand-in for a Santa Cruz nightlife corner, not this location.",
+  "frame_size": [
+   1280,
+   720
+  ],
+  "detector": {
+   "imgsz": 1280,
+   "conf": 0.3,
+   "stride": 2
+  },
+  "zones": [
+   {
+    "id": "intersection",
+    "kind": "ACTIVE_ROADWAY",
+    "label": "Intersection",
+    "polygon": [
+     [
+      0,
+      330
+     ],
+     [
+      640,
+      300
+     ],
+     [
+      1050,
+      430
+     ],
+     [
+      700,
+      720
+     ],
+     [
+      0,
+      720
+     ]
+    ]
+   }
+  ],
+  "armed_primitives": [
+   "zone_dwell",
+   "prone"
+  ],
+  "thresholds": {
+   "dwell_seconds": 12.0,
+   "prone_ratio": 1.0,
+   "prone_hold_seconds": 3.0,
+   "cooldown_seconds": 75.0
+  },
+  "responder": "SCPD_FIRE_EMS_SIM",
+  "agent_context": "Bar-district street corner with heavy late-night foot traffic. The two incident patterns here are people lingering in the intersection while impaired, and ground-level medical events \u2014 collapse from intoxication or overdose. Both are time-critical at night when bystander attention is unreliable. Police and Fire/EMS co-respond in this district.",
+  "runtime": {
+   "status": "REPLAY",
+   "fps": 30.0,
    "person_count": 0
   }
  },

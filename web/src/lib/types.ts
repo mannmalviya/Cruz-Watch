@@ -19,6 +19,7 @@ export interface Site {
   type: "COASTAL" | "URBAN" | "PARK";
   location: { lat: number; lng: number };
   clip: string;
+  banner?: string;
   footage_provenance: Provenance;
   footage_note: string;
   frame_size: [number, number];

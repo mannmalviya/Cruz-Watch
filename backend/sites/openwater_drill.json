@@ -1,0 +1,28 @@
+{
+  "id": "sc-openwater-07",
+  "name": "Cowell Cove — Distress Watch",
+  "type": "COASTAL",
+  "location": { "lat": 36.9622, "lng": -122.0231 },
+  "clip": "openwater_drill.mp4",
+  "banner": "STAGED RESCUE DRILL - DROWNING-DETECTION DEMO, NOT A REAL EMERGENCY",
+  "footage_provenance": "SYNTHETIC_FOOTAGE",
+  "footage_note": "STAGED open-water rescue drill (Surf Life Saving Wales training footage): an instructor simulates swimmer distress and a face-down passive float, then a board rescue. Stand-in for this site; not a real emergency.",
+  "frame_size": [640, 360],
+  "detector": { "imgsz": 960, "conf": 0.3, "stride": 1 },
+  "zones": [
+    {
+      "id": "open-water",
+      "kind": "OPEN_WATER",
+      "label": "Open water",
+      "polygon": [[0, 0], [640, 0], [640, 360], [0, 360]]
+    }
+  ],
+  "armed_primitives": ["prone"],
+  "thresholds": {
+    "prone_ratio": 1.0,
+    "prone_hold_seconds": 2.5,
+    "cooldown_seconds": 20.0
+  },
+  "responder": "SCFD_MARINE_RESCUE_SIM",
+  "agent_context": "Sheltered cove east of the wharf, popular with swimmers beyond the lifeguard flags. A swimmer who transitions from active movement to a face-down, horizontal, motionless float is presenting as an unconscious drowning victim; survival is measured in minutes. Policy: any prone detection in open water is treated as a suspected drowning and escalated at maximum urgency. Training drills are announced to dispatch separately and must never be assumed from the video feed."
+}

@@ -56,6 +56,18 @@ def annotate(frame, site, boxes, alert_tracks: set[int], fps: float):
 
     cv2.putText(out, f"{site['id']}  |  {len(boxes)} tracked  |  {fps:.1f} fps",
                 (10, 22), cv2.FONT_HERSHEY_SIMPLEX, 0.55, (255, 255, 255), 1, cv2.LINE_AA)
+
+    # Per-site disclosure banner (e.g. staged-drill demos), burned into every frame.
+    banner = site.get("banner")
+    if banner:
+        fh, fw = out.shape[:2]
+        scale = max(0.45, fw / 1400)
+        (tw, th), _ = cv2.getTextSize(banner, cv2.FONT_HERSHEY_SIMPLEX, scale, 2)
+        pad = 8
+        y0 = fh - th - pad * 2
+        cv2.rectangle(out, (0, y0), (tw + pad * 2, fh), (25, 178, 250), -1)
+        cv2.putText(out, banner, (pad, fh - pad),
+                    cv2.FONT_HERSHEY_SIMPLEX, scale, (0, 0, 0), 2, cv2.LINE_AA)
     return out
 
 

@@ -1,0 +1,28 @@
+{
+  "id": "sc-transit-10",
+  "name": "Transit Center — Collapse Demo",
+  "type": "URBAN",
+  "location": { "lat": 36.9712, "lng": -122.0256 },
+  "clip": "urban_collapse.mp4",
+  "banner": "STAGED FALL (RESEARCH DATASET) - COLLAPSE-DETECTION DEMO, NOT A REAL EMERGENCY",
+  "footage_provenance": "SYNTHETIC_FOOTAGE",
+  "footage_note": "Le2i fall-detection research dataset (Univ. of Burgundy) — a researcher deliberately falls and lies still for a fixed indoor camera. Staged for research; stand-in for a transit-facility interior camera.",
+  "frame_size": [640, 480],
+  "detector": { "imgsz": 960, "conf": 0.3, "stride": 1 },
+  "zones": [
+    {
+      "id": "waiting-area",
+      "kind": "INDOOR_WAITING_AREA",
+      "label": "Waiting area",
+      "polygon": [[0, 120], [640, 120], [640, 480], [0, 480]]
+    }
+  ],
+  "armed_primitives": ["prone"],
+  "thresholds": {
+    "prone_ratio": 1.0,
+    "prone_hold_seconds": 2.0,
+    "cooldown_seconds": 20.0
+  },
+  "responder": "SCPD_FIRE_EMS_SIM",
+  "agent_context": "Transit-center interior waiting area. A person who falls and remains horizontal on the floor is presenting as a medical collapse — cardiac events, seizure, overdose, and head injury are the leading causes here; several are fatal within minutes without intervention. Policy: any prone detection indoors is treated as a medical emergency and escalated immediately. Cleaning or maintenance staff working at floor level are announced on a separate channel and must never be assumed from the feed."
+}

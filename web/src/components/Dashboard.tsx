@@ -174,7 +174,7 @@ function KpiRow({
 
   return (
     <div className="grid grid-cols-2 gap-px border-b border-edge bg-edge lg:grid-cols-4">
-      <StatTile label="Sites online" value={String(sites.length)} sub="+9 planned deployments" />
+      <StatTile label="Sites online" value={String(sites.length)} sub="+6 planned deployments" />
       <StatTile
         label="Persons tracked"
         value={String(tracked)}
@@ -283,10 +283,9 @@ function VideoWall({
   onSelect: (id: string) => void;
   demo: boolean;
 }) {
-  const latest = incidents[0];
   return (
-    <div className="flex flex-1 flex-col gap-3 p-3">
-      <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+    <div className="flex flex-1 flex-col gap-3 p-3 lg:flex-row lg:items-start">
+      <div className="grid flex-1 content-start gap-2.5 sm:grid-cols-2 xl:grid-cols-3">
         {sites.map((s) => {
           const t = telemetry[s.id];
           const hazard = hazardAge(s.id) < 12;
@@ -328,6 +327,11 @@ function VideoWall({
                 </span>
               </div>
               <div className="pointer-events-none absolute inset-x-0 bottom-0 flex items-center gap-2.5 bg-gradient-to-t from-black/75 to-transparent px-3 pt-6 pb-2">
+                {s.banner && (
+                  <span className="rounded-sm bg-warn px-1.5 py-0.5 font-mono text-[8px] font-bold tracking-wider text-plane">
+                    STAGED DEMO
+                  </span>
+                )}
                 <ProvenanceBadge p={s.footage_provenance} />
                 <span className="font-mono text-[10px] tabular-nums text-ink-2">
                   {t?.person_count ?? 0} trk
@@ -354,18 +358,94 @@ function VideoWall({
         )}
       </div>
 
-      {latest && (
-        <div className="flex items-center gap-3 rounded-md border border-edge bg-surface px-3 py-2">
-          <KindChip kind="incident" />
-          <span className="font-mono text-[10px] text-ink-3">
-            {latest.site_id}
-          </span>
-          <span className="truncate text-[11px] text-ink-2">
-            {String((latest.incident as Record<string, unknown>)?.summary ?? "")}
-          </span>
-        </div>
-      )}
+      <ReportsRail incidents={incidents} sites={sites} />
     </div>
+  );
+}
+
+/* ---------- Gemma reports rail ---------- */
+
+function GemmaMark({ size = 16 }: { size?: number }) {
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src="/gemma.svg"
+      alt="Gemma"
+      width={size}
+      height={size}
+      className="shrink-0"
+    />
+  );
+}
+
+function ReportsRail({
+  incidents,
+  sites,
+}: {
+  incidents: CruzEvent[];
+  sites: Site[];
+}) {
+  const nameOf = (id: string) => sites.find((s) => s.id === id)?.name ?? id;
+  return (
+    <aside className="w-full shrink-0 rounded-md border border-agent/30 bg-surface lg:w-[360px]">
+      <div className="flex items-center gap-2.5 border-b border-edge px-3 py-2.5">
+        <GemmaMark size={18} />
+        <div>
+          <div className="text-[12px] font-semibold text-ink">
+            Incident reports
+          </div>
+          <div className="font-mono text-[9px] tracking-[0.15em] text-agent">
+            WRITTEN BY GEMMA 4 · ON-DEVICE
+          </div>
+        </div>
+        <span className="ml-auto font-mono text-[10px] text-ink-3">
+          {incidents.length}
+        </span>
+      </div>
+      <div className="max-h-[calc(100vh-220px)] divide-y divide-edge overflow-y-auto">
+        {incidents.map((e) => {
+          const inc = e.incident as Record<string, unknown>;
+          const sev = String(inc?.severity ?? "—");
+          return (
+            <div
+              key={e.id}
+              className={`border-l-2 px-3 py-2.5 ${SEVERITY[sev] ?? "border-warn"}`}
+            >
+              <div className="flex items-center gap-2">
+                <span className="font-mono text-[10px] font-semibold text-ink">
+                  {sev}
+                </span>
+                <span className="truncate text-[11px] font-medium text-ink-2">
+                  {nameOf(e.site_id)}
+                </span>
+                <span className="ml-auto shrink-0 font-mono text-[9px] text-ink-3">
+                  {new Date(e.ts * 1000).toLocaleTimeString("en-US", { hour12: false })}
+                </span>
+              </div>
+              <p className="mt-1.5 text-[11px] leading-snug text-ink-2">
+                {String(inc?.summary ?? "")}
+              </p>
+              <div className="mt-2 flex items-center gap-1.5 font-mono text-[9px] text-ink-3">
+                <GemmaMark size={11} />
+                <span>{String(inc?.engine ?? "gemma4")}</span>
+                <span>·</span>
+                <span>{String(inc?.latency_s ?? "—")}s</span>
+                {Boolean(inc?.escalate) && (
+                  <span className="ml-auto text-serious">
+                    → {String(inc?.responder ?? "").replace("_SIM", "")}
+                  </span>
+                )}
+              </div>
+            </div>
+          );
+        })}
+        {incidents.length === 0 && (
+          <div className="px-3 py-6 text-center font-mono text-[10px] text-ink-3">
+            NO REPORTS YET
+          </div>
+        )}
+      </div>
+    </aside>
   );
 }
 
@@ -422,6 +502,11 @@ function DetailView({
           </div>
         </div>
 
+        {site.banner && (
+          <div className="border-b border-warn/40 bg-warn/15 px-3 py-1.5 font-mono text-[10px] font-semibold tracking-wide text-warn">
+            {site.banner}
+          </div>
+        )}
         <div className="scanlines relative bg-black">
           <Feed site={site} demo={demo} className="w-full" />
           <Bracket hazard={hazardRecent} />
@@ -510,6 +595,7 @@ function AgentPanel({
   return (
     <div className="rounded-md border border-agent/30 bg-surface">
       <div className="flex items-center gap-2 border-b border-edge px-3 py-2">
+        <GemmaMark size={14} />
         <span className="font-mono text-[9px] tracking-[0.2em] text-agent">
           GEMMA 4 — ON-TRIGGER REASONING
         </span>

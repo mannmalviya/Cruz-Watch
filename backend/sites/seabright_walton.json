@@ -1,0 +1,32 @@
+{
+  "id": "sc-seabright-02",
+  "name": "Seabright Beach @ Harbor Mouth",
+  "type": "COASTAL",
+  "location": { "lat": 36.9613, "lng": -122.0018 },
+  "clip": "walton_jetty.mp4",
+  "footage_provenance": "ARCHIVED_FOOTAGE",
+  "footage_note": "WebCOOS Walton Lighthouse camera (UCSC/SECOORA) — real fixed camera at this exact site; archived feed from 2026-07-25 15:36 PDT.",
+  "frame_size": [1440, 1080],
+  "detector": { "imgsz": 1280, "conf": 0.25, "stride": 1 },
+  "zones": [
+    {
+      "id": "surf-line",
+      "kind": "SURF_ENTRY_ZONE",
+      "label": "Surf entry / rip zone",
+      "polygon": [[0, 470], [620, 490], [1000, 445], [1440, 400], [1440, 490], [1000, 540], [620, 600], [0, 620]]
+    },
+    {
+      "id": "jetty-rocks",
+      "kind": "JETTY_ROCKS",
+      "label": "Jetty rip-rap",
+      "polygon": [[0, 640], [340, 545], [700, 580], [900, 630], [780, 700], [300, 700], [0, 700]]
+    }
+  ],
+  "armed_primitives": ["zone_dwell"],
+  "thresholds": {
+    "dwell_seconds": 6.0,
+    "cooldown_seconds": 60.0
+  },
+  "responder": "STATE_PARKS_LIFEGUARD_SIM",
+  "agent_context": "Seabright State Beach at the Santa Cruz harbor mouth. The jetty creates strong lateral currents and a known rip along the rock line; waders near the channel can be pulled toward the harbor shipping lane. Seasonal lifeguard tower on the beach, staffed summer daytime only. Harbor Patrol is adjacent inside the harbor; State Parks lifeguards respond on the beach side. People climbing the jetty rip-rap are a recurring injury source."
+}

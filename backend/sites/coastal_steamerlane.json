@@ -1,0 +1,29 @@
+{
+  "id": "sc-westcliff-03",
+  "name": "West Cliff @ Steamer Lane",
+  "type": "COASTAL",
+  "location": { "lat": 36.9514, "lng": -122.0263 },
+  "clip": "coastal_steamerlane.mp4",
+  "footage_provenance": "ARCHIVED_FOOTAGE",
+  "footage_note": "Archived Surfline cliff cam — real fixed camera at this exact site; archived feed, not a live unit.",
+  "frame_size": [1280, 720],
+  "detector": { "imgsz": 1280, "conf": 0.25, "stride": 2 },
+  "zones": [
+    {
+      "id": "rock-impact",
+      "kind": "ROCK_IMPACT_ZONE",
+      "label": "Rock impact zone",
+      "polygon": [[900, 400], [1280, 400], [1280, 640], [900, 640]]
+    }
+  ],
+  "armed_primitives": ["zone_dwell"],
+  "_disarmed_note": "velocity_anomaly is implemented but disarmed here: on surf footage every wave ride is a speed spike, measured at 98 false fires in 180s. Illustrative only, not a validated capability.",
+  "thresholds": {
+    "dwell_seconds": 4.0,
+    "cooldown_seconds": 45.0,
+    "velocity_sigma": 3.5,
+    "velocity_min_history": 15
+  },
+  "responder": "HARBOR_PATROL_SIM",
+  "agent_context": "Unpatrolled cliff break on West Cliff Drive. Surfers regularly sit inside the rock impact zone at the north end of the lineup, where a set wave can push a surfer onto exposed rock. Nearest lifeguard tower is seasonal and 2.3 miles south. Cliff access to the waterline is via a single stair with no vehicle access; a shore rescue requires Harbor Patrol by water."
+}

@@ -1,0 +1,8 @@
+# Deploy uploads are governed by this file rather than .gitignore, so that
+# public/demo/*.mp4 — gitignored for size, but required by the dashboard —
+# still ships. Keep this list in sync with the build-irrelevant entries above.
+node_modules
+.next
+.git
+.env*
+*.tsbuildinfo

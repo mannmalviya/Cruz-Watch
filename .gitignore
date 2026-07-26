@@ -1,0 +1,12 @@
+.logs/
+.logs_*.log
+backend/clips/*.mp4
+backend/clips/annotated_*.jpg
+backend/*.pt
+backend/clips/*.pt
+
+# Demo footage served by the dashboard — 217 MB, kept out of git the same way
+# backend/clips is. Still uploaded on deploy; see web/.vercelignore.
+web/public/demo/*.mp4
+__pycache__/
+.vercel

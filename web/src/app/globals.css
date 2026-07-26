@@ -1,0 +1,128 @@
+@import "tailwindcss";
+
+/*
+ * CruzWatch console tokens — dark-only by design (surveillance product).
+ * Categorical pair (accent blue + agent magenta) validated with the dataviz
+ * six-checks script against surface #141413: protan ΔE 15.9, normal 26.5,
+ * both ≥3:1 contrast. Status palette is the fixed reference set (never themed).
+ */
+@theme inline {
+  --color-plane: #0d0d0d; /* page background        */
+  --color-surface: #141413; /* panel background       */
+  --color-raised: #1c1c1a; /* hover / inset surfaces */
+  --color-ink: #ffffff; /* primary text           */
+  --color-ink-2: #c3c2b7; /* secondary text         */
+  --color-ink-3: #898781; /* muted / labels         */
+  --color-line: #2c2c2a; /* hairline gridline      */
+  --color-edge: rgba(255, 255, 255, 0.08); /* panel border   */
+
+  --color-accent: #3987e5; /* CV / interactive       */
+  --color-agent: #d55181; /* Gemma / agent identity */
+
+  --color-good: #0ca30c; /* status: nominal        */
+  --color-warn: #fab219; /* status: caution        */
+  --color-serious: #ec835a; /* status: degraded       */
+  --color-critical: #d03b3b; /* status: hazard         */
+
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--color-plane);
+  color: var(--color-ink);
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+/* Blinking REC dot — steps() so it snaps like hardware, not a fade. */
+@keyframes rec-blink {
+  0%,
+  55% {
+    opacity: 1;
+  }
+  56%,
+  100% {
+    opacity: 0.15;
+  }
+}
+.rec-dot {
+  animation: rec-blink 1.6s steps(1) infinite;
+}
+
+/* Faint CRT scanlines over video feeds. Decorative, near-invisible. */
+.scanlines::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.028) 0px,
+    rgba(255, 255, 255, 0.028) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+}
+
+/* Dot grid for the landing hero. */
+.dotgrid {
+  background-image: radial-gradient(
+    rgba(255, 255, 255, 0.05) 1px,
+    transparent 1px
+  );
+  background-size: 26px 26px;
+}
+
+/*
+ * Hero wordmark. Base glyphs are hollow; a lit copy is masked to a circle
+ * that follows the pointer. --r is registered so the reveal radius can be
+ * transitioned rather than snapping open.
+ */
+@property --r {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0px;
+}
+.wordmark {
+  --mx: 50%;
+  --my: 50%;
+  transition: --r 0.35s ease-out;
+}
+.wordmark-base {
+  color: rgba(255, 255, 255, 0.07);
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.16);
+}
+.wordmark-lit {
+  background: linear-gradient(
+    100deg,
+    var(--color-ink) 0%,
+    var(--color-accent) 55%,
+    var(--color-agent) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-mask-image: radial-gradient(
+    circle var(--r) at var(--mx) var(--my),
+    #000 0%,
+    #000 62%,
+    transparent 100%
+  );
+  mask-image: radial-gradient(
+    circle var(--r) at var(--mx) var(--my),
+    #000 0%,
+    #000 62%,
+    transparent 100%
+  );
+}
+
+/* Slow radar sweep behind the hero wordmark glyph. */
+@keyframes sweep {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.radar-sweep {
+  animation: sweep 6s linear infinite;
+  transform-origin: center;
+}

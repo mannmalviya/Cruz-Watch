@@ -1,0 +1,26 @@
+{
+  "id": "sc-wharf-05",
+  "name": "Municipal Wharf @ Main Beach",
+  "type": "URBAN",
+  "location": { "lat": 36.9585, "lng": -122.0176 },
+  "clip": "wharf_mainbeach.mp4",
+  "footage_provenance": "ARCHIVED_FOOTAGE",
+  "footage_note": "WebCOOS Santa Cruz Wharf camera (CeNCOOS) — real fixed camera at this exact site; archived feed from 2026-07-25 15:39 PDT.",
+  "frame_size": [1280, 720],
+  "detector": { "imgsz": 1536, "conf": 0.22, "stride": 3 },
+  "zones": [
+    {
+      "id": "surf-line",
+      "kind": "SURF_LINE",
+      "label": "Main Beach surf line",
+      "polygon": [[0, 400], [500, 395], [900, 390], [1280, 385], [1280, 435], [900, 445], [500, 450], [0, 455]]
+    }
+  ],
+  "armed_primitives": ["zone_dwell"],
+  "thresholds": {
+    "dwell_seconds": 6.0,
+    "cooldown_seconds": 60.0
+  },
+  "responder": "SCFD_MARINE_RESCUE_SIM",
+  "agent_context": "Municipal Wharf camera over Main Beach, the busiest beach in the city, directly beside the Boardwalk. Summer crowds in the thousands; lifeguard towers staffed daytime. Rip currents form along the wharf pilings and swimmers drift toward them. City Fire marine rescue launches from the wharf; response time to the surf line is short but the crowd density makes spotting a single person in trouble hard — exactly what automated watch is for."
+}

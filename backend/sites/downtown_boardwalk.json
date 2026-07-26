@@ -1,0 +1,28 @@
+{
+  "id": "sc-downtown-01",
+  "name": "Downtown Pedestrian Corridor",
+  "type": "URBAN",
+  "location": { "lat": 36.9741, "lng": -122.0250 },
+  "clip": "downtown_venice.mp4",
+  "footage_provenance": "SYNTHETIC_FOOTAGE",
+  "footage_note": "Public boardwalk webcam used as stand-in for a downtown Santa Cruz corridor. Real fixed surveillance-style camera; not this location.",
+  "frame_size": [1280, 720],
+  "detector": { "imgsz": 960, "conf": 0.35, "stride": 2 },
+  "zones": [
+    {
+      "id": "closed-corridor",
+      "kind": "RESTRICTED_AFTER_HOURS",
+      "label": "Restricted corridor",
+      "polygon": [[560, 430], [920, 430], [1000, 720], [470, 720]]
+    }
+  ],
+  "armed_primitives": ["zone_dwell", "prone"],
+  "thresholds": {
+    "dwell_seconds": 3.0,
+    "cooldown_seconds": 45.0,
+    "prone_ratio": 1.0,
+    "prone_hold_seconds": 3.0
+  },
+  "responder": "SCPD_FIRE_EMS_SIM",
+  "agent_context": "Downtown pedestrian corridor adjacent to a vendor market. Heavy foot traffic during daytime hours; corridor is posted closed overnight. Ground-level medical incidents here are most commonly heat exhaustion, intoxication, or overdose. Nearest patrol unit is 0.4 miles; Fire/EMS station is 0.9 miles with direct street access."
+}

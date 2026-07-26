@@ -1,0 +1,26 @@
+{
+  "id": "sc-harbor-04",
+  "name": "Harbor Entrance — Day Watch",
+  "type": "COASTAL",
+  "location": { "lat": 36.9605, "lng": -122.0021 },
+  "clip": "harbor_day.mp4",
+  "footage_provenance": "ARCHIVED_FOOTAGE",
+  "footage_note": "santacruzharbor.org live webcam (HD Relay) — recorded live 2026-07-26 ~11:40 PDT via 1 fps snapshot polling.",
+  "frame_size": [1280, 720],
+  "detector": { "imgsz": 960, "conf": 0.28, "stride": 1 },
+  "zones": [
+    {
+      "id": "entrance-channel",
+      "kind": "HARBOR_CHANNEL",
+      "label": "Entrance channel",
+      "polygon": [[0, 320], [1280, 290], [1280, 720], [0, 720]]
+    }
+  ],
+  "armed_primitives": ["zone_dwell"],
+  "thresholds": {
+    "dwell_seconds": 8.0,
+    "cooldown_seconds": 90.0
+  },
+  "responder": "HARBOR_PATROL_SIM",
+  "agent_context": "Santa Cruz Harbor entrance channel in daylight. Kayakers and paddleboarders share the narrow channel with powered vessels; a person in the water here is exposed to boat traffic and the jetty rocks on both sides. Harbor Patrol is stationed inside the harbor with a fast response boat. A person-sized detection dwelling in the channel is more likely a paddler than a swimmer — say so, and weight urgency accordingly."
+}
